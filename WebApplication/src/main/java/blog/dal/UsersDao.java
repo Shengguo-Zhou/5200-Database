@@ -23,7 +23,7 @@ public class UsersDao {
 	}
 
 	public Users create(Users user) throws SQLException {
-		String insertUser = "INSERT INTO Users(UserName,PassWord,FirstName,LastName, Email, Phone) VALUES(?,?,?,?,?,?);";
+		String insertUser = "INSERT INTO Users(UserName,PassWord,FirstName,LastName, Email, Phone) VALUES(?,?,?,?);";
 		Connection connection = null;
 		PreparedStatement insertStmt = null;
 		try {
@@ -33,8 +33,6 @@ public class UsersDao {
 			insertStmt.setString(2, user.getPassWord());
 			insertStmt.setString(3, user.getFirstName());
 			insertStmt.setString(4, user.getLastName());
-			insertStmt.setString(5, user.getEmail());
-			insertStmt.setString(6, user.getPhoneNumber());
 			insertStmt.executeUpdate();
 
 			return user;
@@ -67,9 +65,7 @@ public class UsersDao {
 				String passWord = results.getString("Password");
 				String firstName = results.getString("FirstName");
 				String lastName = results.getString("LastName");
-				String email = results.getString("Email");
-				String phone = results.getString("Phone");
-				Users user = new Users(resultUserName, passWord, firstName, lastName, email, phone);
+				Users user = new Users(resultUserName, passWord, firstName, lastName);
 				return user;
 			}
 		} catch (SQLException e) {
