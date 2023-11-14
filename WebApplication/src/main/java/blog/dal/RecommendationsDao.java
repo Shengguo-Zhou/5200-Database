@@ -1,4 +1,5 @@
-import blog.dal.ConnectionManager;
+package blog.dal;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
