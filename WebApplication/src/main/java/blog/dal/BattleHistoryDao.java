@@ -30,7 +30,7 @@ public class BattleHistoryDao {
 
   public BattleHistory create(BattleHistory battleHistory) throws SQLException {
     String insertBattleHistory =
-        "INSERT INTO BattleHistory(Created,Pokemon1,Pokemon2,Winner) VALUES(?,?,?,?);";
+        "INSERT INTO BattleHistory(Created,PokemonId1,PokemonId2,WinnerId) VALUES(?,?,?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
     ResultSet resultKey = null;
@@ -81,14 +81,15 @@ public class BattleHistoryDao {
       selectStmt = connection.prepareStatement(selectReservation);
       selectStmt.setInt(1, battleId);
       results = selectStmt.executeQuery();
+      PokemonsDao pokemonsDao = PokemonsDao.getInstance();
       if (results.next()) {
         int resultBattleId = results.getInt("BattleId");
         Date created = new Date(results.getTimestamp("Created").getTime());
-        // Pokemons pokemon1 = results.getInt("PokemonId1");
-        // int pokemonId2 = results.getInt("PokemonId2");
-        // int winnerId = results.getInt("WinnerId");
+        Pokemons pokemon1 = pokemonsDao.getPokemonFromPokemonId(results.getInt("PokemonId1"));
+        Pokemons pokemon2 = pokemonsDao.getPokemonFromPokemonId(results.getInt("PokemonId2"));
+        Pokemons winner = pokemonsDao.getPokemonFromPokemonId(results.getInt("WinnerId"));
 
-        BattleHistory battleHistory = new BattleHistory(resultBattleId);
+        BattleHistory battleHistory = new BattleHistory(resultBattleId, created, pokemon1, pokemon2, winner);
         return battleHistory;
       }
     } catch (SQLException e) {

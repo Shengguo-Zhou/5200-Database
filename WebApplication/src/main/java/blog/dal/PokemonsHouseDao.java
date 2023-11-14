@@ -74,7 +74,7 @@ public class PokemonsHouseDao {
   }
 
   public PokemonsHouse getPokemonHouseByHouseId(int houseId) throws SQLException {
-    String selectPokemonsHouse = "SELECT * FROM PokemonsHouse WHERE houseId=?;";
+    String selectPokemonsHouse = "SELECT * FROM PokemonsHouse WHERE HouseId=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;
