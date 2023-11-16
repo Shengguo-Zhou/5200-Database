@@ -5,9 +5,7 @@ import blog.model.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.annotation.*;
@@ -52,7 +50,7 @@ public class FindUsers extends HttpServlet {
         
         // Retrieve and validate name.
         // firstname is retrieved from the URL query string.
-        String userName = req.getParameter("Username");
+        String userName = req.getParameter("UserName");
         Users users = null;
         if (userName == null || userName.trim().isEmpty()) {
             messages.put("success", "Please enter a valid name.");
@@ -86,7 +84,7 @@ public class FindUsers extends HttpServlet {
         // Retrieve and validate name.
         // firstname is retrieved from the form POST submission. By default, it
         // is populated by the URL query string (in FindUsers.jsp).
-        String userName = req.getParameter("username");
+        String userName = req.getParameter("UserName");
         if (userName == null || userName.trim().isEmpty()) {
             messages.put("success", "Please enter a valid name.");
         } else {

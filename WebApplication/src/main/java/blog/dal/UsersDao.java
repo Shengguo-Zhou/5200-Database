@@ -36,7 +36,6 @@ public class UsersDao {
 			insertStmt.setString(3, user.getFirstName());
 			insertStmt.setString(4, user.getLastName());
 			insertStmt.executeUpdate();
-
 			return user;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -64,10 +63,10 @@ public class UsersDao {
 
 			if (results.next()) {
 				String resultUserName = results.getString("UserName");
-				String passWord = results.getString("Password");
+				String password = results.getString("Password");
 				String firstName = results.getString("FirstName");
 				String lastName = results.getString("LastName");
-				Users user = new Users(resultUserName, passWord, firstName, lastName);
+				Users user = new Users(resultUserName, password, firstName, lastName);
 				return user;
 			}
 		} catch (SQLException e) {
@@ -90,7 +89,7 @@ public class UsersDao {
 	public List<Users> getUsersFromFirstName(String firstName)
 			throws SQLException {
 		List<Users> users = new ArrayList<Users>();
-		String selectUser = "SELECT * FROM Users WHERE FirstName=? LIMIT 1;";
+		String selectUser = "SELECT * FROM Users WHERE FirstName=?;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
@@ -123,6 +122,7 @@ public class UsersDao {
 		}
 		return users;
 	}
+	
 
 	public Users delete(Users user) throws SQLException {
 		String deleteUser = "DELETE FROM Users WHERE UserName=?;";

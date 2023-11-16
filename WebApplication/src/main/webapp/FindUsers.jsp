@@ -47,5 +47,7 @@
 	            </c:forEach>
             </c:if>
        </table>
+       <p></p>
+       <div id="findPokemon"><a href="findPokemon">Search for a Pokemon by PokemonID (1-3000)</a></div>
 </body>
 </html>

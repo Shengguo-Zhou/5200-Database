@@ -52,8 +52,8 @@ public class UserCreate extends HttpServlet {
             messages.put("success", "Invalid UserName");
         } else {
         	// Create the BlogUser.
-        	String firstName = req.getParameter("Firstname");
-        	String lastName = req.getParameter("Lastname");
+        	String firstName = req.getParameter("FirstName");
+        	String lastName = req.getParameter("LastName");
         	String password = req.getParameter("Password");
 	        try {
 	        	// Exercise: parse the input for StatusLevel.
