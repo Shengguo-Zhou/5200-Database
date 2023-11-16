@@ -18,11 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/userdelete")
 public class UserDelete extends HttpServlet {
 	
-	protected BlogUsersDao blogUsersDao;
+	protected UsersDao usersDao;
 	
 	@Override
 	public void init() throws ServletException {
-		blogUsersDao = BlogUsersDao.getInstance();
+		usersDao = UsersDao.getInstance();
 	}
 	
 	@Override
@@ -50,11 +50,11 @@ public class UserDelete extends HttpServlet {
             messages.put("disableSubmit", "true");
         } else {
         	// Delete the BlogUser.
-	        BlogUsers blogUser = new BlogUsers(userName);
+	        Users user = new Users(userName);
 	        try {
-	        	blogUser = blogUsersDao.delete(blogUser);
+	        	user = usersDao.delete(user);
 	        	// Update the message.
-		        if (blogUser == null) {
+		        if (user == null) {
 		            messages.put("title", "Successfully deleted " + userName);
 		            messages.put("disableSubmit", "true");
 		        } else {

@@ -36,11 +36,11 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/findusers")
 public class FindUsers extends HttpServlet {
 	
-	protected BlogUsersDao blogUsersDao;
+	protected UsersDao usersDao;
 	
 	@Override
 	public void init() throws ServletException {
-		blogUsersDao = BlogUsersDao.getInstance();
+		usersDao = UsersDao.getInstance();
 	}
 	
 	@Override
@@ -49,28 +49,27 @@ public class FindUsers extends HttpServlet {
 		// Map for storing messages.
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
-
-        List<BlogUsers> blogUsers = new ArrayList<BlogUsers>();
         
         // Retrieve and validate name.
         // firstname is retrieved from the URL query string.
-        String firstName = req.getParameter("firstname");
-        if (firstName == null || firstName.trim().isEmpty()) {
+        String userName = req.getParameter("Username");
+        Users users = null;
+        if (userName == null || userName.trim().isEmpty()) {
             messages.put("success", "Please enter a valid name.");
         } else {
         	// Retrieve BlogUsers, and store as a message.
         	try {
-            	blogUsers = blogUsersDao.getBlogUsersFromFirstName(firstName);
+        		users = usersDao.getUserByUserName(userName);
             } catch (SQLException e) {
     			e.printStackTrace();
     			throw new IOException(e);
             }
-        	messages.put("success", "Displaying results for " + firstName);
+        	messages.put("success", "Displaying results for " + userName);
         	// Save the previous search term, so it can be used as the default
         	// in the input box when rendering FindUsers.jsp.
-        	messages.put("previousFirstName", firstName);
+        	messages.put("previousUserName", userName);
         }
-        req.setAttribute("blogUsers", blogUsers);
+        req.setAttribute("Users", users);
         
         req.getRequestDispatcher("/FindUsers.jsp").forward(req, resp);
 	}
@@ -82,25 +81,25 @@ public class FindUsers extends HttpServlet {
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
 
-        List<BlogUsers> blogUsers = new ArrayList<BlogUsers>();
         
+        Users users = null;
         // Retrieve and validate name.
         // firstname is retrieved from the form POST submission. By default, it
         // is populated by the URL query string (in FindUsers.jsp).
-        String firstName = req.getParameter("firstname");
-        if (firstName == null || firstName.trim().isEmpty()) {
+        String userName = req.getParameter("username");
+        if (userName == null || userName.trim().isEmpty()) {
             messages.put("success", "Please enter a valid name.");
         } else {
         	// Retrieve BlogUsers, and store as a message.
         	try {
-            	blogUsers = blogUsersDao.getBlogUsersFromFirstName(firstName);
+            	users = usersDao.getUserByUserName(userName);
             } catch (SQLException e) {
     			e.printStackTrace();
     			throw new IOException(e);
             }
-        	messages.put("success", "Displaying results for " + firstName);
+        	messages.put("success", "Displaying results for " + userName);
         }
-        req.setAttribute("blogUsers", blogUsers);
+        req.setAttribute("Users", users);
         
         req.getRequestDispatcher("/FindUsers.jsp").forward(req, resp);
     }

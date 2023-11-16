@@ -34,16 +34,18 @@
                 <th>LastName</th>
                 <th>Password</th>
             </tr>
-            <c:forEach items="${Users}" var="User" >
-                <tr>
-                    <td><c:out value="${User.getUserName()}" /></td>
-                    <td><c:out value="${User.getFirstName()}" /></td>
-                    <td><c:out value="${User.getLastName()}" /></td>
-                     <td><c:out value="${User.getPassword()}" /></td>
-                     <td><a href="userdelete?username=<c:out value="${blogUser.getUserName()}"/>">Delete</a></td>
-                    <td><a href="userupdate?username=<c:out value="${blogUser.getUserName()}"/>">Update</a></td>
-                </tr>
-            </c:forEach>
+            <c:if test="${not empty Users}">
+	            <c:forEach items="${Users}" var="User" >
+	                <tr>
+	                    <td><c:out value="${User.getUserName()}" /></td>
+	                    <td><c:out value="${User.getFirstName()}" /></td>
+	                    <td><c:out value="${User.getLastName()}" /></td>
+	                     <td><c:out value="${User.getPassword()}" /></td>
+	                     <td><a href="userdelete?username=<c:out value="${blogUser.getUserName()}"/>">Delete</a></td>
+	                    <td><a href="userupdate?username=<c:out value="${blogUser.getUserName()}"/>">Update</a></td>
+	                </tr>
+	            </c:forEach>
+            </c:if>
        </table>
 </body>
 </html>

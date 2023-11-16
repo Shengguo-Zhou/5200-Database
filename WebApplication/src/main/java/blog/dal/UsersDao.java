@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import blog.model.Users;
 
@@ -23,7 +25,7 @@ public class UsersDao {
 	}
 
 	public Users create(Users user) throws SQLException {
-		String insertUser = "INSERT INTO Users(UserName,PassWord,FirstName,LastName, Email, Phone) VALUES(?,?,?,?);";
+		String insertUser = "INSERT INTO Users(UserName,PassWord,FirstName,LastName) VALUES(?,?,?,?);";
 		Connection connection = null;
 		PreparedStatement insertStmt = null;
 		try {
@@ -50,7 +52,7 @@ public class UsersDao {
 	}
 
 	public Users getUserByUserName(String userName) throws SQLException {
-		String selectUser = "SELECT * FROM Users WHERE UserName=?;";
+		String selectUser = "SELECT * FROM Users WHERE UserName=? LIMIT 1;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
@@ -83,6 +85,43 @@ public class UsersDao {
 			}
 		}
 		return null;
+	}
+	
+	public List<Users> getUsersFromFirstName(String firstName)
+			throws SQLException {
+		List<Users> users = new ArrayList<Users>();
+		String selectUser = "SELECT * FROM Users WHERE FirstName=? LIMIT 1;";
+		Connection connection = null;
+		PreparedStatement selectStmt = null;
+		ResultSet results = null;
+		try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectUser);
+			selectStmt.setString(1, firstName);
+			results = selectStmt.executeQuery();
+			while(results.next()) {
+				String userName = results.getString("UserName");
+				String password = results.getString("Password");
+				String resultFirstName = results.getString("FirstName");
+				String lastName = results.getString("LastName");
+				Users user = new Users(userName, password, resultFirstName, lastName);
+				users.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		return users;
 	}
 
 	public Users delete(Users user) throws SQLException {
