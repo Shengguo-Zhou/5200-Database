@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-@WebServlet("/findPokemon")
+@WebServlet("/findPokemons")
 public class FindPokemons extends HttpServlet {
 	
 	protected PokemonsDao pokemonsDao;
@@ -33,9 +33,11 @@ public class FindPokemons extends HttpServlet {
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
         
-        Integer pokemonId = Integer.valueOf(req.getParameter("id"));
+        String id = req.getParameter("id");
+        Integer pokemonId = 0;
+        if(id != null) pokemonId = Integer.valueOf(id);
         Pokemons pokemons = null;
-        if (pokemonId == null) {
+        if (pokemonId == null || pokemonId == 0) {
             messages.put("success", "Please enter a valid id.");
         } else {
         	// Retrieve BlogUsers, and store as a message.

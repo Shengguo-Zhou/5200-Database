@@ -50,7 +50,8 @@ public class FindUsers extends HttpServlet {
         
         // Retrieve and validate name.
         // firstname is retrieved from the URL query string.
-        String userName = req.getParameter("UserName");
+        String userName = req.getParameter("username");
+        System.out.println(req);
         Users users = null;
         if (userName == null || userName.trim().isEmpty()) {
             messages.put("success", "Please enter a valid name.");
@@ -65,7 +66,7 @@ public class FindUsers extends HttpServlet {
         	messages.put("success", "Displaying results for " + userName);
         	// Save the previous search term, so it can be used as the default
         	// in the input box when rendering FindUsers.jsp.
-        	messages.put("previousUserName", userName);
+        	messages.put("userName", userName);
         }
         req.setAttribute("Users", users);
         
@@ -84,7 +85,7 @@ public class FindUsers extends HttpServlet {
         // Retrieve and validate name.
         // firstname is retrieved from the form POST submission. By default, it
         // is populated by the URL query string (in FindUsers.jsp).
-        String userName = req.getParameter("UserName");
+        String userName = req.getParameter("username");
         if (userName == null || userName.trim().isEmpty()) {
             messages.put("success", "Please enter a valid name.");
         } else {

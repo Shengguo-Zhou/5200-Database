@@ -35,19 +35,19 @@
                 <th>Password</th>
             </tr>
             <c:if test="${not empty Users}">
-	            <c:forEach items="${Users}" var="User" >
+	           <%--  <c:forEach items="${Users}" var="User" > --%>
 	                <tr>
-	                    <td><c:out value="${User.getUserName()}" /></td>
-	                    <td><c:out value="${User.getFirstName()}" /></td>
-	                    <td><c:out value="${User.getLastName()}" /></td>
-	                     <td><c:out value="${User.getPassword()}" /></td>
-	                     <td><a href="userdelete?username=<c:out value="${blogUser.getUserName()}"/>">Delete</a></td>
-	                    <td><a href="userupdate?username=<c:out value="${blogUser.getUserName()}"/>">Update</a></td>
+	                    <td><c:out value="${Users.getUserName()}" /></td>
+	                    <td><c:out value="${Users.getFirstName()}" /></td>
+	                    <td><c:out value="${Users.getLastName()}" /></td>
+	                     <td><c:out value="${Users.getPassWord()}" /></td>
+	                     <td><a href="userdelete?username=<c:out value="${Users.getUserName()}"/>">Delete</a></td>
+	                    <td><a href="userupdate?username=<c:out value="${Users.getUserName()}"/>">Update</a></td>
 	                </tr>
-	            </c:forEach>
+	            <%-- </c:forEach> --%>
             </c:if>
        </table>
        <p></p>
-       <div id="findPokemon"><a href="findPokemon">Search for a Pokemon by PokemonID (1-3000)</a></div>
+       <div id="findPokemons"><a href="findPokemons">Search for a Pokemon by PokemonID (1-3000)</a></div>
 </body>
 </html>

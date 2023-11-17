@@ -11,7 +11,7 @@
 <title>Find a Pokemon</title>
 </head>
 <body>
-	<form action="findPokemon" method="post">
+	<form action="findPokemons" method="post">
 		<h1>Search for a Pokemon by PokemonID (1-3000)</h1>
 		<p>
 			<label for="id">ID</label>
@@ -35,7 +35,7 @@
                 <th>HouseId</th>
             </tr>
             <c:if test="${not empty Pokemons}">
-	            <c:forEach items="${Pokemons}" var="User" >
+	            <%-- <c:forEach items="${Pokemons}" var="Pokemon" > --%>
 	                <tr>
 	                    <td><c:out value="${Pokemons.getPokemonId()}" /></td>
 	                    <td><c:out value="${Pokemons.getName()}" /></td>
@@ -43,7 +43,7 @@
 	                    <td><c:out value="${Pokemons.getDefense()}" /></td>
 	                    <td><c:out value="${Pokemons.getHouseId()}" /></td>
 	                </tr>
-	            </c:forEach>
+	            <%-- </c:forEach> --%>
             </c:if>
        </table>
 </body>
